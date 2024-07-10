@@ -59,12 +59,10 @@ object Build : BuildType({
             jdkHome = "%env.JDK_17_0%"
         }
 
-        script{
+        script {
             name = "Echo"
-            id = "__NEW_RUNNER__"
-            scriptContent = """echo "================= Buildin JAR =================""""
+            scriptContent = """echo "================= Building JAR =================""""
         }
-        
     }
 
     triggers {
