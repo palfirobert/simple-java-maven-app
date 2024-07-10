@@ -54,7 +54,7 @@ object Build : BuildType({
         script {
             name = "Echo"
             id = "Echo"
-            scriptContent = """echo "Building JAR...""""
+            scriptContent = "echo 'Building JAR...'"
         }
 
         maven {
