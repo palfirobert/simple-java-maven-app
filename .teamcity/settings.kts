@@ -58,6 +58,13 @@ object Build : BuildType({
             mavenVersion = bundled_3_9()
             jdkHome = "%env.JDK_17_0%"
         }
+
+        script{
+            name = "Echo"
+            id = "__NEW_RUNNER__"
+            scriptContent = """echo "================= Buildin JAR =================""""
+        }
+        
     }
 
     triggers {
