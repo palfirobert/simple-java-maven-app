@@ -50,11 +50,7 @@ object Build : BuildType({
     }
 
     steps {
-    script {
-        name = "Echo"
-        id = "Echo"
-        scriptContent = """echo "Building JAR..""""
-    }
+    
     maven {
         name = "Custom build name"
         id = "Maven2"
