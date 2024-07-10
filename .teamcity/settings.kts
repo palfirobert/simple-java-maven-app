@@ -1,7 +1,6 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
-import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubConnection
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
@@ -51,11 +50,6 @@ object Build : BuildType({
     }
 
     steps {
-        script {
-            name = "Echo"
-            id = "Echo"
-            scriptContent = """echo "Building JAR...""""
-        }
         maven {
             name = "Custom build name"
             id = "Maven2"
