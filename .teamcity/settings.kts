@@ -50,20 +50,20 @@ object Build : BuildType({
     }
 
     steps {
-        maven {
-            id = "Maven2"
-            goals = "clean test"
-            name = "Custom build name"
-            runnerArgs = "-Dmaven.test.failure.ignore=true"
-            mavenVersion = bundled_3_9()
-            jdkHome = "%env.JDK_17_0%"
-        }
-
-        script {
-            name = "Echo"
-            scriptContent = """echo "================= Building JAR =================""""
-        }
+    script {
+        name = "Echo"
+        id = "Echo"
+        scriptContent = """echo "Building JAR..""""
     }
+    maven {
+        name = "Custom build name"
+        id = "Maven2"
+        goals = "clean test"
+        runnerArgs = "-Dmaven.test.failure.ignore=true"
+        mavenVersion = bundled_3_9()
+        jdkHome = "%env.JDK_17_0%"
+    }
+}
 
     triggers {
         vcs {
