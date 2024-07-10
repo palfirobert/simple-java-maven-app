@@ -1,6 +1,7 @@
 import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildFeatures.perfmon
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.projectFeatures.githubConnection
 import jetbrains.buildServer.configs.kotlin.triggers.vcs
 
@@ -50,16 +51,20 @@ object Build : BuildType({
     }
 
     steps {
-    
-    maven {
-        name = "Custom build name"
-        id = "Maven2"
-        goals = "clean test"
-        runnerArgs = "-Dmaven.test.failure.ignore=true"
-        mavenVersion = bundled_3_9()
-        jdkHome = "%env.JDK_17_0%"
+        maven {
+            name = "Custom build name"
+            id = "Maven2"
+            goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+            mavenVersion = bundled_3_9()
+            jdkHome = "%env.JDK_17_0%"
+        }
+        script {
+            name = "Echo"
+            id = "Echo"
+            scriptContent = """echo "Building JAR...""""
+        }
     }
-}
 
     triggers {
         vcs {
