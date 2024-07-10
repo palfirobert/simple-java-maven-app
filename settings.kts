@@ -52,6 +52,7 @@ object Build : BuildType({
     steps {
         maven {
             id = "Maven2"
+            name = "My custom build name"
             goals = "clean test"
             runnerArgs = "-Dmaven.test.failure.ignore=true"
             mavenVersion = bundled_3_9()
