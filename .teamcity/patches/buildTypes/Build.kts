@@ -1,6 +1,8 @@
 package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildSteps.maven
+import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
 
 /*
@@ -18,5 +20,22 @@ changeBuildType(RelativeId("Build")) {
         add {
             param("env.MAVEN_OPTS", "env.MAVEN_OPTS")
         }
+    }
+
+    expectSteps {
+        script {
+            name = "Echo"
+            scriptContent = "echo 'Building JAR...'"
+        }
+        maven {
+            name = "Custom build name"
+            goals = "clean test"
+            runnerArgs = "-Dmaven.test.failure.ignore=true"
+            mavenVersion = bundled_3_9()
+            jdkHome = "%env.JDK_17_0%"
+        }
+    }
+    steps {
+        items.removeAt(1)
     }
 }
