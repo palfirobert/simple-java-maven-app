@@ -13,4 +13,10 @@ changeBuildType(RelativeId("Build")) {
         "Unexpected option value: artifactRules = $artifactRules"
     }
     artifactRules = "/target/surefire-reports/**"
+
+    params {
+        add {
+            param("env.MAVEN_OPTS", "env.MAVEN_OPTS")
+        }
+    }
 }
