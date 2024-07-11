@@ -1,6 +1,7 @@
 package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.*
+import jetbrains.buildServer.configs.kotlin.buildSteps.ScriptBuildStep
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
@@ -36,7 +37,14 @@ changeBuildType(RelativeId("Build")) {
         }
     }
     steps {
-        items.removeAt(0)
-        items.removeAt(0)
+        update<ScriptBuildStep>(0) {
+            name = ""
+            clearConditions()
+            scriptContent = """
+                export PATH="%teamcity.tool.maven.DEFAULT%/bin":${'$'}{PATH}
+                mvn -version
+            """.trimIndent()
+        }
+        items.removeAt(1)
     }
 }
