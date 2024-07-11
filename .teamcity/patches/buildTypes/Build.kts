@@ -1,7 +1,7 @@
 package patches.buildTypes
 
 import jetbrains.buildServer.configs.kotlin.*
-import jetbrains.buildServer.configs.kotlin.buildSteps.ScriptBuildStep
+import jetbrains.buildServer.configs.kotlin.buildSteps.MavenBuildStep
 import jetbrains.buildServer.configs.kotlin.buildSteps.maven
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
 import jetbrains.buildServer.configs.kotlin.ui.*
@@ -37,17 +37,14 @@ changeBuildType(RelativeId("Build")) {
         }
     }
     steps {
-        insert(0) {
-            maven {
-                name = "Build"
-                id = "Build"
-                goals = "package"
-            }
-        }
-        update<ScriptBuildStep>(1) {
+        items.removeAt(0)
+        update<MavenBuildStep>(0) {
+            name = "Build"
             clearConditions()
-            scriptContent = "mvn clean package"
+            goals = "package"
+            runnerArgs = ""
+            mavenVersion = defaultProvidedVersion()
+            jdkHome = ""
         }
-        items.removeAt(2)
     }
 }
